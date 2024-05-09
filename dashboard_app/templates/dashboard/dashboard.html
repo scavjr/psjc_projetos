@@ -1,0 +1,35 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+{% block content %}
+<div class="container">
+<div class="row d-flex justify-content-end mt-2">
+{% if user.is_authenticated %}
+    Seja bem-vindo, {{ user.first_name }}!  
+{% else %}
+    Você não está logado!
+ {% endif %}
+</div>
+<div class="row">
+<p>
+       Total de Solicitações ativas: {{total_solicitacoes}}
+</p>
+<p>
+     Total de Nova Edificação : {{total_tipoos}}
+</p>
+ 
+   
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}

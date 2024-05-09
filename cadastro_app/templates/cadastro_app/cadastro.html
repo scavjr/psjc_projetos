@@ -1,0 +1,33 @@
+{% extends "web_project/base.html" %}
+{% load django_bootstrap5 %}
+{% block title %}
+Cadastros
+{% endblock %}
+{% block content %}
+{{setor}}
+<div class="container">
+    <div class="row pt-5">
+        <h3>Cadastro de {{nome_title}}</h3>
+    </div>
+    <div class="col-5">
+<form action="{% url nome_url 'novo' %}" method="post" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content="Gravar" %}
+    <a href="{% url 'cancelar' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

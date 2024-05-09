@@ -1,0 +1,101 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Detalhe
+{% endblock %}
+{% block content %}
+
+<div class="row  pt-5">
+  <div class="row">
+    <div class="col-4">
+      <dt class="col"> Nome de Referência</dt>
+      <span>
+        <dd class="col">{{solicitacao.nome_referencia}}</dd>
+      </span>
+    </div>
+    <div class="col-4">
+      <dt class="col"> Nome Reduzido:</dt>
+      <span>
+        <dd class="col">{{solicitacao.nome_reduzido}}</dd>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <dt class="col"> Documento da Solicitação</dt>
+      <span>
+        <dd class="col">{{solicitacao.doc_sol}}</dd>
+      </span>
+    </div>
+    <div class="col-4">
+      <dt> Data da Solicitação:</dt>
+      <span>
+        <dd> {{solicitacao.data_sol}}</dd>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <dt class="col"> Endereço: </dt>
+      <span>
+        <dd class="col">{{solicitacao.endereco}}</dd>
+      </span>
+    </div>
+    <div class="col-4">
+      <dt class="col"> Bairro:</dt>
+      <span>
+        <dd class="col">{{solicitacao.bairro}}</dd>
+      </span>
+    </div>
+    <div class="col-4">
+      <dt class="col"> Região: </dt>
+      <span>
+        <dd class="col"> {{solicitacao.regiao}}</dd>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <dt class="col"> Setor: </dt>
+      <span>
+        <dd class="col"> {{solicitacao.setor}}</dd>
+      </span>
+    </div>
+    <div class="col-4">
+      <dt class="col"> Resp. pela Solicitação: </dt>
+      <span>
+        <dd class="col"> {{solicitacao.responsavel}}</dd>
+      </span>
+    </div>
+    <div class="col-4">
+      <dt class="col"> Contato: </dt>
+      <span>
+        <dd class="col"> {{solicitacao.contato}}</dd>
+      </span>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <dt class="col"> Tipo de Obra/Serviço</dt>
+        <span>
+          <dd class="col">{{solicitacao.tipoos}}</dd>
+        </span>
+      </div>
+      <div class="col-4">
+        <dt class="col">Equipe DPO</dt>
+        <span>
+          <dd class="col">{{solicitacao.nome_equipe}}</dd>
+        </span>
+      </div>
+    </div>
+<div class="row text-center mt-5">
+  <div class="col">
+    <a href="{% url 'sol_list'%}" class="card-link">Voltar</a>
+  </div>
+</div>
+
+  
+  </div>
+</div>
+
+
+{% endblock %}

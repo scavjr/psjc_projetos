@@ -1,0 +1,73 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Lista de Eventos
+{% endblock %}
+{% block content %}
+<h1>Eventos</h1>
+<ul>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data Evento</th>
+                <th>Descrição</th>
+                <th>Documento</th>
+                <th>Responsável</th>
+                <th>Tipo</th>
+                <th>Solicitação</th>
+                <th colspan="3" class="text-center">Ação</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for eventos in object_list %}
+            <tr>
+                <td>{{eventos.id}}</td>
+                <td>{{eventos.data_evento}}</td>
+                <td>{{eventos.descricao}}</td>
+                <td>{{eventos.documento}}</td>
+                <td>{{eventos.responsavel}}</td>
+                <td>{{eventos.tipo_evento}}</td>
+                <td>{{eventos.solicitacao.nome_referencia}}</td>
+
+                <td> <a href="{% url 'evento_detalhe' eventos.id %}" class="btn btn-outline-primary btn-sm">Exibir</a>
+                </td>
+                <td> <a href="{% url 'evento_atualiza' eventos.id %}" class="btn btn-outline-primary btn-sm">Editar</a>
+                </td>
+                <td> <a href="{% url 'evento_delete' eventos.id %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <li>Nenhuma Evento ainda. <a href="{% url 'evento_create'%}">Novo Evento</a> </li>
+            
+            {%endfor%}
+        </tbody>
+    </table>
+    <nav class="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <li class="page-item">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Anterior</a>
+                {% endif %}
+            </li>
+            {% for page_num in page_obj.paginator.page_range %}
+            {% if page_num == page_obj.number %}
+            <li class="page-item">
+                <a class="active page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+            </li>
+            {% else %}
+            <li class="page-item"> <a class=page-link href="?page={{ page_num }}">{{ page_num }}</a> </li>
+            {% endif %}
+            {% endfor %}
+            </li>
+            <li class="page-item">
+                {% if page_obj.has_next %}
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <form action="{% url 'evento_create' %}" method="get">
+        {% csrf_token %}
+        <button type="submmit" > Novo Evento   </button>
+{% endblock %}

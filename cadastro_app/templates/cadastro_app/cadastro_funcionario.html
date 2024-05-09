@@ -1,0 +1,46 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Lista
+{% endblock %}
+{% block content %}
+   <div class="container mt-3">
+    <h2>Lista de {{nome_title}}</h2>    
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+      {{message}}
+    </div>
+    <!--<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>-->
+    {% endfor %}
+</ul>
+{% endif %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Setor</th>
+          <th>Cargo</th>
+          <th colspan="1" class="text-center"> Ações</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        {% for item in lista %}
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.nome}}</td>
+          <td>{{item.setor}}</td>
+          <td> <a href="{% url nome_url item.id %}" class="btn btn-outline-primary btn-sm">Editar</a></td>
+          <td> <a href="{% url nome_url 'excluir' item.id %}" class="btn btn-outline-danger btn-sm">Excluir</a></td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+    <form action="{% url nome_url %}" method="post">
+        {% csrf_token %}
+            <p><td> <button type="submit" class="btn btn-outline-success btn-sm">Novo</a></td></p>   
+    </form>
+  </div>
+{% endblock %}

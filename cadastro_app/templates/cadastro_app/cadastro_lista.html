@@ -1,0 +1,20 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Lista_Cadastro
+{% endblock %}
+{% block content %}
+<div class="container pt-5">
+    <h3 class="pb-4">O que você deseja cadastrar?</h3>
+    <div class="list-group  list-group-flush">
+        <a href="{% url 'cargos'%}" class="list-group-item list-group-item-action">Cargos</a>
+        <a href="{% url 'eventos' %}" class="list-group-item list-group-item-action">Eventos</a>
+        <a href="{% url 'fases'%}" class="list-group-item list-group-item-action">Fases</a>
+        <a href="{% url 'funcionarios' %}" class="list-group-item list-group-item-action">Funcionários</a>
+        <a href="{% url 'regioes'%}" class="list-group-item list-group-item-action">Regiões</a>
+        <a href="{% url 'setores' %}" class="list-group-item list-group-item-action">Setores</a>
+        <a href="{% url 'subfases'%}" class="list-group-item list-group-item-action">Subfases</a>
+        <a href="{% url 'tipodoc'%}" class="list-group-item list-group-item-action">Tipos de Documentos</a>
+        <a href="{% url 'tiposos'%}" class="list-group-item list-group-item-action">Tipos de Obra ou Serviço</a>
+      </div>
+</div>
+{% endblock %}

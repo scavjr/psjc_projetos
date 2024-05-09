@@ -1,0 +1,12 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Apagar Registro
+{% endblock %}
+{% block content %}
+<p>Apagar Solicitação</p>
+<form method="POST">
+  {% csrf_token %}
+  Você quer deletar essa solicitação?
+  <input type="submit" value="Apagar" />
+</form>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "web_project/base.html" %}
+{% block title %}
+Lista de Solicitações
+{% endblock %}
+{% block content %}
+<h1>Solicitações</h1>
+<ul>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Referência</th>
+                <th>Documento</th>
+                <th>Data</th>
+                <th>Região</th>
+                <th>Setor</th>
+                <th>Equipe</th>
+                <th colspan="3" class="text-center">Ação</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for solicitacao in object_list %}
+            <tr>
+                <td>{{solicitacao.tipoos}}</td>
+                <td>{{solicitacao.nome_referencia}}</td>
+                <td>{{solicitacao.doc_sol}}</td>
+                <td>{{solicitacao.data_sol}}</td>
+                <td>{{solicitacao.regiao}}</td>
+                <td>{{solicitacao.setor}}</td>
+                <td>{{solicitacao.nome_equipe}}</td>
+                <td> <a href="{% url 'sol_detalhe' solicitacao.id %}" class="btn btn-outline-primary btn-sm">Exibir</a>
+                </td>
+                <td> <a href="{% url 'sol_form_editar' 'editar' solicitacao.id %}" class="btn btn-outline-primary btn-sm">Editar</a>
+                </td>
+                <td> <a href="{% url 'sol_delete' solicitacao.id %}" class="btn btn-outline-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% empty %}
+            <li>Nenhuma Solicitação ainda. <a href="{% url 'sol_record_form'%}">Nova Solicitação</a> </li>
+            <a href="{% url 'sol_record_form'%}">Nova Solicitação</a>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="row">
+
+        <nav class="Page navigation example">
+            <ul class="pagination justify-content-end">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Anterior</a>
+                    {% endif %}
+                </li>
+                {% for page_num in page_obj.paginator.page_range %}
+                {% if page_num == page_obj.number %}
+                <li class="page-item">
+                    <a class="active page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                </li>
+                {% else %}
+                <li class="page-item"> <a class=page-link href="?page={{ page_num }}">{{ page_num }}</a> </li>
+                {% endif %}
+                {% endfor %}
+                </li>
+                <li class="page-item">
+                    {% if page_obj.has_next %}
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+   
+    <form action="{% url 'sol_record_form' %}" method="get">
+        {% csrf_token %}
+        <p>
+            <td> <button type="submit" class="btn btn-primary mt-3 btn-sm">Nova Solicitação</a></td>
+        </p>
+    </form>
+</ul>
+{% endblock %}

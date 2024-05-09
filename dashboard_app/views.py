@@ -1,0 +1,20 @@
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.contrib.auth import logout
+from django.urls import reverse
+
+from sol_app.models import Solicitacao
+
+
+def dashboard_view(request):
+
+    query = Solicitacao.objects.all().count()
+    query2 = Solicitacao.objects.filter(tipoos=1).count()
+    total_solicitacoes = query
+    return render(request, 'dashboard/dashboard.html', {'total_solicitacoes': total_solicitacoes, 'total_tipoos':query2})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('login'))
+    # Redirect to a success page.
