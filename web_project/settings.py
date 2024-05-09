@@ -33,7 +33,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['vercel.app']
+ALLOWED_HOSTS = ['psjc-projetos-m6m17grmi-samuel-cavadas-projects.vercel.app']
 
 # Application definition
 
