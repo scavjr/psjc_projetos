@@ -114,6 +114,7 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 
 SUPABASE_URL = config('SUPABASE_URL')
 DJANGO_ENV = os.environ.get('DJANGO_ENV')
+
 DATABASES = {
         'default':
         {
