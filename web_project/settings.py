@@ -41,7 +41,7 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app", ".now.sh"]
 
 # Application definition
 
