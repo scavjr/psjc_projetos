@@ -32,7 +32,7 @@ else:
     SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     STATICFILES_DIRS = [
@@ -112,7 +112,8 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
+SUPABASE_URL = config('SUPABASE_URL')
+DJANGO_ENV = os.environ.get('DJANGO_ENV')
 DATABASES = {
         'default':
         {
