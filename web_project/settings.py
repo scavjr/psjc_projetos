@@ -33,7 +33,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1','vercel.app']
 
 # Application definition
 
@@ -98,12 +98,12 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 
 if 'DATABASE_URL' in os.environ:
     settings.DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg3',
         'NAME': config('DB_NAME', default='default'),
         'USER': config('DB_USER', default='default'),
         'PASSWORD': config('DB_PASSWORD', default='default'),
         'HOST': config('DB_HOST', default='default'),
-        'PORT': config('DB_PORT', default=5433),
+        'PORT': config('DB_PORT', default=5432),
     }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
