@@ -14,8 +14,8 @@ import os
 from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
-from django.conf import settings
-import dj_database_url
+
+
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
