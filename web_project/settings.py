@@ -33,7 +33,14 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['psjc-projetos-m6m17grmi-samuel-cavadas-projects.vercel.app']
+if DEBUG:
+        STATICFILES_DIRS = [
+            os.path.join(BASE_DIR, 'static')
+       ]
+    else:
+        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
+
+ALLOWED_HOSTS = ['vercel.app']
 
 # Application definition
 
