@@ -34,11 +34,11 @@ else:
 DEBUG = False
 
 if DEBUG:
-        STATICFILES_DIRS = [
+    STATICFILES_DIRS = [
             os.path.join(BASE_DIR, 'static')
        ]
-    else:
-        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
 
 ALLOWED_HOSTS = ['vercel.app']
 
