@@ -15,6 +15,7 @@ from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
 from django.conf import settings
+import dj_database_url
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,7 +41,7 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
 
-ALLOWED_HOSTS = ['vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -103,14 +104,17 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-if 'DATABASE_URL' in os.environ:
-    settings.DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg3',
-        'NAME': config('DB_NAME', default='default'),
-        'USER': config('DB_USER', default='default'),
-        'PASSWORD': config('DB_PASSWORD', default='default'),
-        'HOST': config('DB_HOST', default='default'),
-        'PORT': config('DB_PORT', default=5432),
+
+DATABASES = {
+        'default':
+        {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='postgres'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': config('DB_PORT', default=5432),
+        }
     }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
