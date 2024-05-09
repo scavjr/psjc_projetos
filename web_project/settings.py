@@ -113,7 +113,7 @@ DATABASES = {
             'USER': config('POSTGRES_USER'),
             'PASSWORD': config('POSTGRES_PASSWORD'),
             'HOST': config('POSTGRES_HOST'),
-            'PORT': config('DB_PORT', default=5432),
+            'PORT': config('DB_PORT', default=6543),
         }
     }
 # Password validation
