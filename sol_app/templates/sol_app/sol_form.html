@@ -1,24 +1,20 @@
 {% extends "web_project/base.html" %}
 {% load crispy_forms_tags %}
-
 {% block title %}
 Solicitação
 {% endblock %}
 {% block content %}
-
-
 <h5 class="pt-5 text-center pb-3">Edição de Solicitação</h5>
-
 <form method="POST">
-  <div class="class card" >
-  <div class="card-header">
-  <h6 class="card-text">Solicitação</h6>
-  </div>
-  <div class="card-body">
-    {% csrf_token %}
-    {% crispy form %}
-  </div>
+  <div class="class card">
+    <div class="card-header">
+      <h6 class="card-text">Solicitação</h6>
+    </div>
+    <div class="card-body">
+      {% csrf_token %}
+      {% crispy form %}
+    </div>
     <input type="submit" value="Gravar" />
   </div>
-  </form>
+</form>
 {% endblock %}

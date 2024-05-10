@@ -1,6 +1,5 @@
 from typing import Any
 from django.shortcuts import render
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, UpdateView, DeleteView
@@ -10,12 +9,11 @@ from django.views import View
 from django.utils import timezone
 from sol_app.models import Solicitacao
 from .forms import SolForm
-from django.core.paginator import Paginator
 from django.db.models import ProtectedError
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class SolRecordFormView(LoginRequiredMixin,FormView):
+class SolRecordFormView(LoginRequiredMixin, FormView):
     template_name = "sol_app/sol_form.html"
     form_class = SolForm
     success_url = "entry_success"
@@ -25,13 +23,13 @@ class SolRecordFormView(LoginRequiredMixin,FormView):
         return super().form_valid(form)
 
 
-class FormSuccessView(LoginRequiredMixin,View):
+class FormSuccessView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         print("aqui")
         return HttpResponse("Solicitação criada com sucesso!")
 
 
-class SolListView(LoginRequiredMixin,ListView):
+class SolListView(LoginRequiredMixin, ListView):
     model = Solicitacao
     paginate_by = 10
     template_name = "sol_app/sol_lista.html"
@@ -42,19 +40,19 @@ class SolListView(LoginRequiredMixin,ListView):
         return context
 
 
-class SolDetailView(LoginRequiredMixin,DetailView):
+class SolDetailView(LoginRequiredMixin, DetailView):
     model = Solicitacao
     template_name = "sol_app/sol_detail.html"
 
 
-class SolUpdateView(LoginRequiredMixin,UpdateView):
+class SolUpdateView(LoginRequiredMixin, UpdateView):
     model = Solicitacao
     form_class = SolForm
     template_name = "sol_app/sol_form.html"
     success_url = "entry_success"
 
 
-class SolDeleteView(LoginRequiredMixin,DeleteView):
+class SolDeleteView(LoginRequiredMixin, DeleteView):
     model = Solicitacao
     template_name = "sol_app/sol_delete_form.html"
     success_url = "delete_success"
@@ -74,7 +72,7 @@ class SolDeleteView(LoginRequiredMixin,DeleteView):
         return context
 
 
-class FormErrorView(LoginRequiredMixin,View):
+class FormErrorView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         msg = "Solicitação não pode ser excluída, pois há eventos registrados no histórico dela."
         return render(
