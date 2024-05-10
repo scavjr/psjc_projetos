@@ -4,12 +4,12 @@ from django.views import View
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from evento_app.forms import EventoForm
 from .models import EventoRegistro, Solicitacao
 
 
-class EventoCreateView(CreateView):
+class EventoCreateView(LoginRequiredMixin, CreateView):
     model = EventoRegistro
     # fields = ['data_evento', 'descricao','documento', 'responsavel', 'tipo_evento','solicitacao']
     form_class = EventoForm
@@ -23,18 +23,18 @@ class EventoCreateView(CreateView):
     
 
 
-class EventoListView(ListView):
+class EventoListView(LoginRequiredMixin,ListView):
     model = EventoRegistro
     paginate_by = 10
     template_name = 'evento_app/evento_lista.html'
 
 
-class EventoDetailView(DetailView):
+class EventoDetailView(LoginRequiredMixin,DetailView):
     model = EventoRegistro
     template_name = 'evento_app/evento_registro_detalhe.html'
 
 
-class EventoUpdateView(UpdateView):
+class EventoUpdateView(LoginRequiredMixin,UpdateView):
     model = EventoRegistro
     # fields = ['data_evento', 'descricao','documento', 'responsavel', 'tipo_evento','solicitacao']
     form_class = EventoForm
@@ -46,7 +46,7 @@ class EventoUpdateView(UpdateView):
         context['tipo_acao'] = 'Alterado'
         return context
 
-class FormSuccessView(View):
+class FormSuccessView(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         print(request.GET)
         acao = request.GET['tipo_acao']
@@ -55,12 +55,12 @@ class FormSuccessView(View):
         else:
             return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'criado', 'nome_formulario' : 'Criação'})
 
-class EventoDeleteView(DeleteView):
+class EventoDeleteView(LoginRequiredMixin,DeleteView):
     model = EventoRegistro
     template_name = 'evento_app/evento_delete_form.html'
     success_url = 'delete_success' + '?tipo_acao=deletado'
 
-class FormSuccessDeleteView(View):
+class FormSuccessDeleteView(LoginRequiredMixin,View):
     def get(self, request, *args, **kwargs):
         print(request.GET)
         acao = request.GET['tipo_acao']

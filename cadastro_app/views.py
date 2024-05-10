@@ -6,15 +6,16 @@ import cadastro_app.utils as utils
 from cadastro_app import cadastro_form
 from django.apps import apps
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def cadastros_list_view(request):
     return render(
         request,
         "cadastro_app/cadastro_lista.html",
     )
 
-
+@login_required
 def cadastro_view(request, id=None, nome_model=None):
     nome_model = request.resolver_match.kwargs['nome_model']
     model1 = apps.get_model('cadastro_app', nome_model)
@@ -68,7 +69,7 @@ def cadastro_view(request, id=None, nome_model=None):
                     },
                 )
 
-
+@login_required
 def cadastro_excluir_view(request, id=None, nome_model=None, acao=None):
     nome_model: str = request.resolver_match.kwargs['nome_model']
     model1 = apps.get_model('cadastro_app', nome_model)
@@ -79,7 +80,7 @@ def cadastro_excluir_view(request, id=None, nome_model=None, acao=None):
     url_name = nome_model.lower()
     return redirect(url_name)
 
-
+@login_required
 def cadastro_novo_view(request, nome_model=None, novo=None):
     novo_registro = request.POST
     nome_model: str = request.resolver_match.kwargs['nome_model']
@@ -97,6 +98,6 @@ def cadastro_novo_view(request, nome_model=None, novo=None):
     instance.save()
     return redirect(url_nome)
 
-
+@login_required
 def cancel_view(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

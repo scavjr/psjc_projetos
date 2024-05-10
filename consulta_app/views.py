@@ -5,9 +5,11 @@ from cadastro_app.models import Eventos
 from evento_app.models import EventoRegistro
 from sol_app.models import Solicitacao
 from django.db.models import Count
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class HistoricoListaView(ListView):
+# @login_required
+class HistoricoListaView(LoginRequiredMixin, ListView):
     model = Solicitacao
     # paginate_by = 2
     template_name = "consulta_app/lista_historico.html"
