@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
-import dj_database_url
+import dj_database_url, psycopg2
 
 
 
@@ -34,7 +34,8 @@ else:
     SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 if DEBUG:
     STATICFILES_DIRS = [
@@ -133,7 +134,7 @@ else:
                 'USER': config('POSTGRES_USER'),
                 'PASSWORD': config('POSTGRES_PASSWORD'),
                 'HOST': config('POSTGRES_HOST'),
-                'PORT': 6543,
+                'PORT': 5432,
             }
         }
 # Password validation
