@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 from decouple import config
 from dotenv import load_dotenv
+import dj_database_url
+
 
 
 
@@ -32,7 +34,7 @@ else:
     SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     STATICFILES_DIRS = [
@@ -41,7 +43,7 @@ if DEBUG:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
 
-if DEBUG:  # SECURITY WARNING: don't run with debug turned on in production!
+if DEBUG: # SECURITY WARNING: don't run with debug turned on in production!
   # configuração localhost
     ALLOWED_HOSTS = ["127.0.0.1"]
 else: # configuração vercel
@@ -80,6 +82,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -112,20 +115,27 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-SUPABASE_URL = config('SUPABASE_URL')
+SUPABASE_DB_URL = config('SUPABASE_URL')
 DJANGO_ENV = os.environ.get('DJANGO_ENV')
-
-DATABASES = {
-        'default':
-        {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'postgres',
-            'USER': config('POSTGRES_USER'),
-            'PASSWORD': config('POSTGRES_PASSWORD'),
-            'HOST': config('POSTGRES_HOST'),
-            'PORT': 6543,
-        }
+if SUPABASE_DB_URL:
+    # Use the Supabase database configuration
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=SUPABASE_DB_URL, conn_max_age=600
+        )
     }
+else:
+    DATABASES = {
+            'default':
+            {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'postgres',
+                'USER': config('POSTGRES_USER'),
+                'PASSWORD': config('POSTGRES_PASSWORD'),
+                'HOST': config('POSTGRES_HOST'),
+                'PORT': 6543,
+            }
+        }
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -159,9 +169,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static') 
-STATIC_URL = '/staticfiles/'
+STATIC_URL = 'static/'  #'/staticfiles/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / 'static',
