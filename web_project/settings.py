@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'web_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-SUPABASE_DB_URL = config('SUPABASE_URL')
+SUPABASE_DB_URL = config('SUPABASE_DB_URL')
 DJANGO_ENV = os.environ.get('DJANGO_ENV')
 if SUPABASE_DB_URL:
     # Use the Supabase database configuration
