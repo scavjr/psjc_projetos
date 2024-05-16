@@ -81,7 +81,7 @@ def cadastro_excluir_view(request, id=None, nome_model=None, acao=None):
     return redirect(url_name)
 
 @login_required
-def cadastro_novo_view(request, nome_model=None, novo=None):
+def cadastro_novo_view(request, nome_model=None, novo=None, setor=None):
     novo_registro = request.POST
     nome_model: str = request.resolver_match.kwargs['nome_model']
     url_nome = nome_model.lower()
