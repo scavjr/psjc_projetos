@@ -3,10 +3,12 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import logout
 from django.urls import reverse
 
+from django.contrib.auth.decorators import login_required
+
 from sol_app.models import Solicitacao
 
-
-def dashboard_view(request):
+@login_required
+def dashboard_view(request ):
 
     query = Solicitacao.objects.all().count()
     query2 = Solicitacao.objects.filter(tipoos=1).count()

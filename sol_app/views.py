@@ -59,7 +59,6 @@ class SolDeleteView(LoginRequiredMixin, DeleteView):
     error_url = reverse_lazy("delete_error")
 
     def dispatch(self, request, *args, **kwargs):
-        print('asddddddddddddddddddddddddddddddddddddddddddddddddd')
         try:
             return super().dispatch(request, *args, **kwargs)
         except ProtectedError as e:

@@ -7,6 +7,8 @@ from cadastro_app import cadastro_form
 from django.apps import apps
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import ProtectedError
+from django.http import HttpResponseServerError
 
 @login_required
 def cadastros_list_view(request):
@@ -75,10 +77,57 @@ def cadastro_excluir_view(request, id=None, nome_model=None, acao=None):
     model1 = apps.get_model('cadastro_app', nome_model)
     if acao == 'excluir':
         registro = get_object_or_404(model1, id=id)
-        registro_deletado = registro.delete()
-        messages.add_message(request, messages.WARNING, "Você excluir o item " + str(registro_deletado))
+        try:
+            registro_deletado = registro.delete()
+            messages.add_message(request, messages.WARNING, "Você excluir o item " + str(registro_deletado))
+        except ProtectedError as e:
+            objetos_error = e.protected_objects
+            for obj in objetos_error:
+                msg_error = str(f"Não pode excluir essa dado, porque ele está sendo usado pela tabela {obj.__class__.__name__}. Exclua primeiro o registro dessa tabela.")
+            return  HttpResponseServerError( msg_error)
+
     url_name = nome_model.lower()
     return redirect(url_name)
+
+
+
+# class SolDeleteView(LoginRequiredMixin, DeleteView):
+#     model = Solicitacao
+#     template_name = "sol_app/sol_delete_form.html"
+#     success_url = "delete_success"
+#     error_url = reverse_lazy("delete_error")
+
+#     def dispatch(self, request, *args, **kwargs):
+#         try:
+#             return super().dispatch(request, *args, **kwargs)
+#         except ProtectedError as e:
+#             print(e)
+#             return HttpResponseRedirect(self.error_url)
+
+#     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+#         context = super().get_context_data(**kwargs)
+#         context['info_error'] = 'Tem eventos'
+#         return context
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required
 def cadastro_novo_view(request, nome_model=None, novo=None, setor=None):
