@@ -6,3 +6,5 @@ urlpatterns = [
       path('', dashboard_view, name='dashboard'),
       path('logout', logout_view, name='logout')
   ]
+
+

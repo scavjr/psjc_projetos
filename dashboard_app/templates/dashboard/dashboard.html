@@ -1,7 +1,16 @@
 {% extends "web_project/base.html" %}
+{% load static %}
 {% block title %}
 Dashboard
 {% endblock %}
+<!--                     -->
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
+<!--  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>                   -->
+ 
+<script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
+
 {% block content %}
 <div class="container">
 <div class="row d-flex justify-content-end mt-2">
@@ -15,6 +24,34 @@ Dashboard
 <p>
        Total de Solicitações ativas: {{total_solicitacoes}}
 </p>
+<div class="row">
+    <div class="col-4">
+        <canvas id="pie-chart" width="500" height="500"></canvas>
+       <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+        <script>
+            var config = {
+              type: 'doughnut',
+              data: {
+                        datasets: [{
+                            data: {{ data|safe }},
+                    // backgroundColor: ['#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'],
+                    label: 'Solicitações'
+                }],
+                labels: {{ labels|safe }}
+              },
+              options: {
+                responsive: true
+              }
+            };
+        
+            window.onload = function() {
+              var ctx = document.getElementById('pie-chart').getContext('2d');
+              window.myPie = new Chart(ctx, config);
+            };
+        
+          </script>
+    </div>
+</div>
 <p>
      Total de Nova Edificação : {{total_tipoos}}
 </p>

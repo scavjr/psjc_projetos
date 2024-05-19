@@ -3,6 +3,17 @@ from cadastro_app.models import Funcionarios, Regioes, Setores, TiposOS
 
 
 class Solicitacao(models.Model):
+    ABERTA = 'AB'
+    EM_ANDAMENTO = 'EA'
+    FINALIZADA = 'FI'
+    CANCELADA = 'CA'
+
+    STATUS_CHOICES = [
+        (ABERTA, 'Aberta'),
+        (EM_ANDAMENTO, 'Em andamento'),
+        (FINALIZADA, 'Finalizada'),
+        (CANCELADA, 'Cancelada'),
+    ]
     nome_referencia = models.CharField(max_length=200, verbose_name='Referência',)
     nome_reduzido = models.CharField(max_length=50)
     doc_sol = models.CharField(max_length=100, verbose_name='Documento da Solicitação')
@@ -17,6 +28,7 @@ class Solicitacao(models.Model):
     equipe_dpo = models.ManyToManyField(Funcionarios, through="SolicitacaoFuncionarios")
     nome_equipe = models.CharField(max_length=50)
     data_criacao = models.DateField(auto_now_add=True)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=ABERTA)
 
 
 class SolicitacaoFuncionarios(models.Model):
