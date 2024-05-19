@@ -21,11 +21,12 @@ Dashboard
  {% endif %}
 </div>
 <div class="row">
-<p>
-       Total de Solicitações ativas: {{total_solicitacoes}}
-</p>
+
 <div class="row">
-    <div class="col-4">
+    <div class="col-4 pt-3">
+      <p>
+        Solicitações ativas: {{total_solicitacoes}}
+ </p>
         <canvas id="pie-chart" width="500" height="500"></canvas>
        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
         <script>
@@ -51,9 +52,13 @@ Dashboard
         
           </script>
     </div>
+    <div class="col-4 pt-3 ml-3" >
+ Total de Nova Edificação : {{total_tipoos}}
+
+    </di>
 </div>
 <p>
-     Total de Nova Edificação : {{total_tipoos}}
+    
 </p>
  
    

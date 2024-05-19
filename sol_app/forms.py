@@ -11,6 +11,8 @@ class SolForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SolForm, self).__init__(*args, **kwargs)
+        # self.fields['status'].initial = 'AB'  # Defina o valor padrão aqui
+        # self.fields['status'].widget = forms.HiddenInput()
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Row(
@@ -35,6 +37,10 @@ class SolForm(forms.ModelForm):
                 Column('tipoos', css_class='col-md-4'),
                 Column('equipe_dpo', css_class='col-md-4'),
                 Column('nome_equipe', css_class='col-md-4'),
+            ),
+             Row(
+                Column('status', css_class='col-md-4'),
+               
             ),
 
         )

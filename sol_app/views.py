@@ -17,8 +17,15 @@ class SolRecordFormView(LoginRequiredMixin, FormView):
     template_name = "sol_app/sol_form.html"
     form_class = SolForm
     success_url = "entry_success"
+    
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        print('haqui')
+        context = super().get_context_data(**kwargs)
+        context["tipo_solicitacao"] = 'Nova '
+        return context
 
     def form_valid(self, form):
+        print('aqui')
         form.save()
         return super().form_valid(form)
 
@@ -50,6 +57,11 @@ class SolUpdateView(LoginRequiredMixin, UpdateView):
     form_class = SolForm
     template_name = "sol_app/sol_form.html"
     success_url = "entry_success"
+    def get_context_data(self, **kwargs) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["tipo_solicitacao"] = 'Atualização de '
+        return context
+    
 
 
 class SolDeleteView(LoginRequiredMixin, DeleteView):
