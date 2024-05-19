@@ -13,6 +13,7 @@ class SolForm(forms.ModelForm):
         super(SolForm, self).__init__(*args, **kwargs)
         #self.fields['status'].initial = 'AB'  # Defina o valor padrão aqui
         self.fields['status'].widget = forms.HiddenInput()
+        self.fields['data_sol'].widget = forms.DateInput(format='%d/%m/%Y', attrs={'placeholder': 'DD/MM/AAAA'})
         self.helper = FormHelper(self)
         self.helper.layout = Layout(
             Row(

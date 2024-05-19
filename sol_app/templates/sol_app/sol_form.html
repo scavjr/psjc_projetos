@@ -17,4 +17,42 @@ Solicitação
     <input type="submit" value="Gravar" />
   </div>
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- Inclui o arquivo de localização do jQuery UI para português -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
+
+<!-- Script JavaScript para ativar o datepicker -->
+<script>
+    $(document).ready(function() {
+        // Seleciona todos os campos de data renderizados pelo Crispy Forms
+        $('#id_data_sol').datepicker({
+            dateFormat: 'dd/mm/yy', // Formato de data brasileiro
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            regional: 'pt-BR', // Define o idioma do datepicker para português
+            onSelect: function(dateText, inst) {
+                $(this).val(dateText); // Quando o usuário seleciona uma data no datepicker
+            }
+        });
+
+        // Habilita a digitação manual no campo de data
+        // Seleciona todos os campos de data renderizados pelo Crispy Forms
+        var dateInputs = document.querySelectorAll('#id_data_sol');
+        
+        // Adiciona um evento de input a cada campo de data
+        dateInputs.forEach(function(input) {
+            input.addEventListener('input', function() {
+                var value = this.value;
+                // Verifica se o valor tem 2 ou 5 caracteres e adiciona a barra quando necessário
+                if (value.length === 2 || value.length === 5) {
+                    this.value += '/';
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
