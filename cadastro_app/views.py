@@ -1,6 +1,7 @@
 from django.forms import modelform_factory
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import resolve
 from .models import Cargos, Fases, Regioes, Setores
 import cadastro_app.utils as utils
 from cadastro_app import cadastro_form
@@ -9,6 +10,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import ProtectedError
 from django.http import HttpResponseServerError
+
 
 @login_required
 def cadastros_list_view(request):
@@ -75,11 +77,14 @@ def cadastro_view(request, id=None, nome_model=None):
 def cadastro_excluir_view(request, id=None, nome_model=None, acao=None):
     nome_model: str = request.resolver_match.kwargs['nome_model']
     model1 = apps.get_model('cadastro_app', nome_model)
+    nome_url = resolve(request.path).url_name
     if acao == 'excluir':
         registro = get_object_or_404(model1, id=id)
         try:
             registro_deletado = registro.delete()
-            messages.add_message(request, messages.WARNING, "Você excluir o item " + str(registro_deletado))
+            context = {'sucesso_enviar': True, 'tipo_acao': 'excluído', 'nome_formulario' : 'Exclusão', 'tipo_cadastro': nome_model, 'nome_url': nome_url}
+            return render(request, 'evento_app/modal.html', context)
+            # messages.add_message(request, messages.WARNING, "Você excluir o item " + str(registro_deletado))
         except ProtectedError as e:
             objetos_error = e.protected_objects
             for obj in objetos_error:

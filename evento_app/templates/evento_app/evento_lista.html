@@ -23,7 +23,7 @@ Lista de Eventos
             {% for eventos in object_list %}
             <tr>
                 <td>{{eventos.id}}</td>
-                <td>{{eventos.data_evento}}</td>
+                <td>{{eventos.data_evento|date:"SHORT_DATE_FORMAT" }}</td>
                 <td>{{eventos.descricao}}</td>
                 <td>{{eventos.documento}}</td>
                 <td>{{eventos.responsavel}}</td>

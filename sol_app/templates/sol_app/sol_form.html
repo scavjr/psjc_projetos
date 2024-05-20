@@ -1,9 +1,15 @@
 {% extends "web_project/base.html" %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
 Solicitação
 {% endblock %}
 {% block content %}
+<script src="{% static 'admin/js/vendor/jquery/jquery.min.js' %}"> </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
 <h5 class="pt-5 text-center pb-3">{{tipo_solicitacao}} Solicitação</h5>
 <form method="POST">
   <div class="class card">
@@ -17,13 +23,6 @@ Solicitação
     <input type="submit" value="Gravar" />
   </div>
 </form>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-<!-- Inclui o arquivo de localização do jQuery UI para português -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/i18n/jquery-ui-i18n.min.js"></script>
-
 <!-- Script JavaScript para ativar o datepicker -->
 <script>
     $(document).ready(function() {

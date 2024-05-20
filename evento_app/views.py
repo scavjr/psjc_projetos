@@ -51,9 +51,9 @@ class FormSuccessView(LoginRequiredMixin,View):
         print(request.GET)
         acao = request.GET['tipo_acao']
         if acao == 'Alteração':
-            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'alterado', 'nome_formulario' : 'Alteração'})
+            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'alterado', 'nome_formulario' : 'Alteração','nome_url': 'evento_lista', 'tipo_cadastro': 'Evento'})
         else:
-            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'criado', 'nome_formulario' : 'Criação'})
+            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'criado', 'nome_formulario' : 'Criação','nome_url': 'evento_lista','tipo_cadastro': 'Evento'})
 
 class EventoDeleteView(LoginRequiredMixin,DeleteView):
     model = EventoRegistro
@@ -65,8 +65,8 @@ class FormSuccessDeleteView(LoginRequiredMixin,View):
         print(request.GET)
         acao = request.GET['tipo_acao']
         if acao == 'deletado':
-            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'excluído', 'nome_formulario' : 'Exclusão'})
+            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'excluído', 'nome_formulario' : 'Exclusão', 'nome_url':'evento_lista', 'tipo_cadastro': 'Evento'})
         else:
-            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'criado', 'nome_formulario' : 'Criação'})
+            return render(request, 'evento_app/modal.html', {'sucesso_enviar': True, 'tipo_acao': 'criado', 'nome_formulario' : 'Criação', 'nome_url':'evento_lista', 'tipo_cadastro': 'Evento'})
 
  
