@@ -12,7 +12,7 @@ class EventoForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(EventoForm, self).__init__(*args, **kwargs)
-        
+        self.fields['data_evento'].widget = forms.DateInput(format='%d/%m/%Y', attrs={'placeholder': 'DD/MM/AAAA'})
         self.fields["descricao"].widget.attrs = {"row": 5}
         self.fields["solicitacao"].choices = [
             (item.id, item.nome_referencia) for item in Solicitacao.objects.all()
