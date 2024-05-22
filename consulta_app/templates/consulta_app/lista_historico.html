@@ -4,57 +4,35 @@ asdsd
 {% endblock %}
 {% block content %}
 
-
+<div class="row mt-3">
+  <p>Apenas Solicitações com eventos</p>
+</div>
 <div class="accordion" id="accordionExample">
   {% for solicitacao in object_list %}
-  <div class="accordion-item mt-2">
-    <div class="row">
-    <h2 class="accordion-header" id="headingOne">
+  {% if solicitacao.evento_registro_count > 0 %}
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="#{{solicitacao.id}}">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{solicitacao.id}}"
-        aria-expanded="true" aria-controls="collapseOne">
-      
-           {{ solicitacao.nome_reduzido }}:  {{ solicitacao.evento_registro_count }}
+        aria-expanded="true" aria-controls="#{{solicitacao.id}}">
+        {{ solicitacao.nome_reduzido }}: {{ solicitacao.evento_registro_count }}
         evento{{solicitacao.evento_registro_count|pluralize}}
-     
       </button>
-    </h2>   
-  </div>
-    <div class="row">
-     
-   </div>
+    </h2>
+    <div  id="{{solicitacao.id}}" class="accordion-collapse collapse" aria-labelledby="#{{solicitacao.id}}"
+    data-bs-parent="#accordionExample">
+    <div class="accordion-body" style="height: auto;">
     {% for eventoregistro in solicitacao.eventoregistro_set.all|dictsort:'data_evento' %}
-    <div id="{{solicitacao.id}}" class="accordion-collapse collapse" aria-labelledby="headingOne"
-      data-bs-parent="#accordionExample">
-      <div class="accordion-body" style="height: 10px;">
-        
-        Data do Evento: {{ eventoregistro.data_evento|date:'d/m/y'}} {{ eventoregistro.data_evento|time:'H:i'}}
+    <div class="row">
+       Data do Evento: {{ eventoregistro.data_evento|date:'d/m/y'}} {{ eventoregistro.data_evento|time:'H:i'}}
         Evento: {{ eventoregistro.tipo_evento}}
         Descrição: {{ eventoregistro.descricao}}
         Documento: {{ eventoregistro.documento}}
         Responsável: {{ eventoregistro.responsavel}}
-
-
+    </div>
+    {% endfor %} 
       </div>
     </div>
-      {% endfor %}
   </div>
-
+  {%endif %}
   {% endfor %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{% endblock %}
+  {% endblock %}
