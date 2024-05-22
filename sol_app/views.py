@@ -28,6 +28,7 @@ class SolRecordFormView(LoginRequiredMixin, FormView):
         print('aqui')
         form.save()
         return super().form_valid(form)
+    
 
 
 class FormSuccessView(LoginRequiredMixin, View):

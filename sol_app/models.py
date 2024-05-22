@@ -1,5 +1,6 @@
 from django.db import models
 from cadastro_app.models import Funcionarios, Regioes, Setores, TiposOS
+from django.utils import timezone
 
 
 class Solicitacao(models.Model):
@@ -26,9 +27,18 @@ class Solicitacao(models.Model):
     contato = models.ForeignKey(Funcionarios, on_delete=models.PROTECT, related_name='funcionario_contato')
     tipoos = models.ForeignKey(TiposOS, on_delete=models.PROTECT)
     equipe_dpo = models.ManyToManyField(Funcionarios, through="SolicitacaoFuncionarios")
-    nome_equipe = models.CharField(max_length=50)
+    nome_equipe = models.CharField(max_length=50, blank=True, null=True)
     data_criacao = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=ABERTA)
+
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not self.nome_equipe:
+            ano_atual = timezone.now().year
+            self.nome_equipe = f'EQP_{self.id}_{ano_atual}'
+            self.save(update_fields=['nome_equipe'])
+        
 
 
 class SolicitacaoFuncionarios(models.Model):
@@ -38,3 +48,5 @@ class SolicitacaoFuncionarios(models.Model):
     solicitacao = models.ForeignKey(Solicitacao, on_delete=models.CASCADE) 
     funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
     funcao = models.CharField(verbose_name="Posição na equipe", choices=EquipeFormacaoRegra.choices, max_length=20)
+
+
