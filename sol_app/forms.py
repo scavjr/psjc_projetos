@@ -37,7 +37,7 @@ class SolForm(forms.ModelForm):
              Row(
                 Column('tipoos', css_class='col-md-4'),
                 Column('equipe_dpo', css_class='col-md-4'),
-                Column('nome_equipe', css_class='col-md-4'),
+                # Column('nome_equipe', css_class='col-md-4'),
             ),
              Row(
                 Column('status', css_class='col-md-4'),
