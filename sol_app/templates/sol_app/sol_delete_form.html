@@ -3,10 +3,17 @@
 Apagar Registro
 {% endblock %}
 {% block content %}
-<p>Apagar Solicitação</p>
-<form method="POST">
-  {% csrf_token %}
-  Você quer deletar essa solicitação?
-  <input type="submit" value="Apagar" />
-</form>
+<div class="row text-center">
+  <div class="card border-dark mb-3 mt-5" style="width: 18rem;margin: 0 auto; float: none;">
+    <div class="card-body">
+      <h5 class="card-title">Apagar Solicitação</h5>
+      <p class="card-text">Você quer deletar essa solicitação?</p>
+      <form method="POST">
+        {% csrf_token %}
+          <button class="btn btn-secondary" type="submit" value="Apagar"  > Apagar </button>
+          <a class="btn btn-secondary"  href="{% url 'sol_list' %}">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

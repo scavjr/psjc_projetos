@@ -45,7 +45,7 @@ Lista de Solicitações
                 Nenhuma Solicitação ainda.
             </div>
             <div>
-                <a href="{% url 'sol_record_form'%}">Nova Solicitação</a> </li>
+                <a class="btn btn-secondary" href="{% url 'sol_record_form'%}">Nova Solicitação</a> </li>
             </div>
             </div>
             {%endfor%}
@@ -82,9 +82,12 @@ Lista de Solicitações
     {% if object_list %}
     <form action="{% url 'sol_record_form' %}" method="get">
         {% csrf_token %}
-        <p>
-            <td> <button type="submit" class="btn btn-primary mt-3 p-1 btn-sm">Nova Solicitação</a></td>
-        </p>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                 <button type="submit" class="btn btn-secondary mt-3 btn-sm">Nova Solicitação</button>
+            </div>
+           
+        </div>
     </form>
     {%endif%}
 </ul>
