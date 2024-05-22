@@ -68,5 +68,10 @@ Lista de Eventos
     </nav>
     <form action="{% url 'evento_create' %}" method="get">
         {% csrf_token %}
-        <button type="submmit" > Novo Evento   </button>
+        <div class="row">
+            <div class="col-6">
+                 <button class="btn btn-secondary" type="submmit">Novo Evento</button>
+            </div>
+        </div>
+       
 {% endblock %}

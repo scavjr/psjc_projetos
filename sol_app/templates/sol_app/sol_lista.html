@@ -82,9 +82,9 @@ Lista de Solicitações
     {% if object_list %}
     <form action="{% url 'sol_record_form' %}" method="get">
         {% csrf_token %}
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-6">
-                 <button type="submit" class="btn btn-secondary mt-3 btn-sm">Nova Solicitação</button>
+                 <button type="submit" class="btn btn-secondary mt-3">Nova Solicitação</button>
             </div>
            
         </div>

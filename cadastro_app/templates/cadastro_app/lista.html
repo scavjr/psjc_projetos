@@ -39,7 +39,13 @@ Lista
     </table>
     <form action="{% url nome_url %}" method="post">
         {% csrf_token %}
-            <p><td> <button type="submit" class="btn btn-outline-success btn-sm">Novo</a></td></p>   
+        <div class="row">
+          <div class="col-6">
+             <button type="submit" class="btn btn-secondary">Novo</a> 
+          </div>
+          
+        </div>
+            
     </form>
   </div>
 {% endblock %}
