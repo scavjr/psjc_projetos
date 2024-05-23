@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from .views import acesso_negado_view, ListarAuditoria
 
 
 urlpatterns = [
-    path('', views.ListarAuditoria.as_view(), name= 'listar_auditoria')
+    path("acesso_negado/", acesso_negado_view, name= "acesso_negado"),
+    path('', ListarAuditoria.as_view(), name= 'listar_auditoria'),
+ 
 ]
