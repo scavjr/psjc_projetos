@@ -9,48 +9,73 @@ Dashboard
 --> 
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <div class="container">
-<div class="row d-flex justify-content-end mt-2">
-{% if user.is_authenticated %}
-    Seja bem-vindo, {{ user.first_name }}!  
-{% else %}
-    Você não está logado!
- {% endif %}
-</div>
-<div class="row">
-<div class="row">
+  <div class="row d-flex justify-content-end mt-2">
+    {% if user.is_authenticated %}
+      Seja bem-vindo, {{ user.first_name }}!  
+    {% else %}
+      Você não está logado!
+    {% endif %}
+  </div>
+  <div class="row">
     <div class="col-4 pt-3">
       <p>
         Solicitações ativas: {{total_solicitacoes}}
- </p>
-        <canvas id="pie-chart" width="500" height="500"></canvas>
+      </p>
+      <canvas id="pie-chart" width="500" height="500"></canvas>
   
-        <script>
-            var config = {
-              type: 'doughnut',
-              data: {
-                        datasets: [{
-                            data: {{ data|safe }},
-                    // backgroundColor: ['#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'],
-                    label: 'Solicitações'
-                }],
-                labels: {{ labels|safe }}
-              },
-              options: {
-                responsive: true
+      <script>
+        var dados = {{ data|safe }};
+        var labels = {{ labels|safe }};
+        
+        // Função para calcular as porcentagens
+        function calcularPorcentagens(dados) {
+          var total = dados.reduce((acc, value) => acc + value, 0);
+          return dados.map(value => ((value / total) * 100).toFixed(2));
+        }
+
+        var porcentagens = calcularPorcentagens(dados);
+
+        var config = {
+          type: 'doughnut',
+          data: {
+            datasets: [{
+              data: dados,
+              backgroundColor: [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#8A2BE2',
+                '#3CB371',
+                '#FF4500'
+              ],
+              label: 'Solicitações',
+              
+            }],
+            labels: labels.map(function(label, index) {
+              return label + ' (' + porcentagens[index] + '%)';
+            })
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
               }
-            };
+            },
+            
+          }
+        };
         
-            window.onload = function() {
-              var ctx = document.getElementById('pie-chart').getContext('2d');
-              window.myPie = new Chart(ctx, config);
-            };
-        
-          </script>
+        window.onload = function() {
+          var ctx = document.getElementById('pie-chart').getContext('2d');
+          window.myPie = new Chart(ctx, config);
+        };
+      </script>
     </div>
     <div class="col-4 pt-3 ml-3" >
-    </di>
-</div>
-</div>
+    </div>
+  </div>
 </div>
 {% endblock %}
