@@ -14,10 +14,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 </head>
+
 <body>
-   <div>
+    <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-secondary ">
-            <div class="container-fluid">
+            <div class="container">
                 <a href="{% url 'dashboard' %}" class="nvbar-brand text-light"
                     style="text-decoration: none;">Dashboard</a>
                 <a href="{% url 'sol_list' %}" class="nvbar-brand text-light"
@@ -32,16 +33,10 @@
                 <a href="{% url 'acesso_negado' %}" class="nvbar-brand text-light"
                     style="text-decoration: none;">Auditoria</a>
                 <a href="{% url 'logout' %}" class="nvbar-brand text-light" style="text-decoration: none;">Sair</a>
-            </div>
         </nav>
-        <div class="container mt-2">
-        <div class="body-content">
             {% block content %}
             {% endblock %}
         </div>
-        </div>
-    </div>
 </body>
-</div>
 
 </html>
