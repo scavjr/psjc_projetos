@@ -6,16 +6,16 @@ Dashboard
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> -->
 <!--  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>    
 <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
---> 
+-->
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <div class="container">
   <div class="row d-flex justify-content-end mt-2">
     {% if user.is_authenticated %}
-      Seja bem-vindo, {{ user.first_name }}!  
+    Seja bem-vindo, {{ user.first_name }}!
     {% else %}
-      Você não está logado!
+    Você não está logado!
     {% endif %}
   </div>
   <div class="row">
@@ -24,11 +24,12 @@ Dashboard
         Solicitações ativas: {{total_solicitacoes}}
       </p>
       <canvas id="pie-chart" width="500" height="500"></canvas>
-  
+
       <script>
-        var dados = {{ data|safe }};
-        var labels = {{ labels|safe }};
-        
+        Chart.register(ChartDataLabels);
+        var dados = {{ data| safe }};
+        var labels = {{ labels| safe }};
+
         // Função para calcular as porcentagens
         function calcularPorcentagens(dados) {
           var total = dados.reduce((acc, value) => acc + value, 0);
@@ -51,30 +52,38 @@ Dashboard
                 '#FF4500'
               ],
               label: 'Solicitações',
-              
             }],
-            labels: labels.map(function(label, index) {
-              return label + ' (' + porcentagens[index] + '%)';
+            labels: labels.map(function (label, index) {
+              return label;
             })
           },
           options: {
             responsive: true,
             plugins: {
+              datalabels: {
+                color: '#000', // Cor do texto
+                formatter: (value, ctx) => {
+                  let label = ctx.chart.data.labels[ctx.dataIndex];
+                  let percent = ctx.chart.data.datasets[0].data[ctx.dataIndex];
+                  return  percent * 10 + '%';
+                }
+              },
               legend: {
                 position: 'top',
               }
             },
-            
-          }
+
+          },
+
         };
-        
-        window.onload = function() {
+
+        window.onload = function () {
           var ctx = document.getElementById('pie-chart').getContext('2d');
           window.myPie = new Chart(ctx, config);
         };
       </script>
     </div>
-    <div class="col-4 pt-3 ml-3" >
+    <div class="col-4 pt-3 ml-3">
     </div>
   </div>
 </div>
