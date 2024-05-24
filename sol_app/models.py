@@ -29,14 +29,16 @@ class Solicitacao(models.Model):
     equipe_dpo = models.ManyToManyField(Funcionarios, through="SolicitacaoFuncionarios")
     nome_equipe = models.CharField(max_length=50, blank=True, null=True)
     data_criacao = models.DateField(auto_now_add=True)
-    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=ABERTA)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=ABERTA, blank=True, null=True)
 
 
     def save(self, *args, **kwargs):
+        self.status = 'AB'
         super().save(*args, **kwargs)
         if not self.nome_equipe:
             ano_atual = timezone.now().year
             self.nome_equipe = f'EQP_{self.id}_{ano_atual}'
+            print('aqui está')
             self.save(update_fields=['nome_equipe'])
         
 

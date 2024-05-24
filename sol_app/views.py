@@ -20,6 +20,7 @@ class SolRecordFormView(LoginRequiredMixin, FormView):
     
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         print('haqui')
+        
         context = super().get_context_data(**kwargs)
         context["tipo_solicitacao"] = 'Nova '
         context['tipo_acao'] = 'Criado'
@@ -30,7 +31,11 @@ class SolRecordFormView(LoginRequiredMixin, FormView):
         form.save()
         return super().form_valid(form)
     
-
+    
+    def form_invalid(self, form):
+        print('O formulário é inválido!')
+        print(form.errors)  # Imprime os erros de validação
+        return super().form_invalid(form)
     
 
 class FormSuccessView(LoginRequiredMixin, View):

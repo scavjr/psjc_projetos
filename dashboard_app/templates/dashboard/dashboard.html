@@ -64,8 +64,8 @@ Dashboard
                 color: '#000', // Cor do texto
                 formatter: (value, ctx) => {
                   let label = ctx.chart.data.labels[ctx.dataIndex];
-                  let percent = ctx.chart.data.datasets[0].data[ctx.dataIndex];
-                  return  percent * 10 + '%';
+                  let percent = calcularPorcentagens(ctx.chart.data.datasets[0].data)[ctx.dataIndex];
+                  return  percent  + '%';
                 }
               },
               legend: {
