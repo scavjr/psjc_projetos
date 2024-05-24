@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -21,7 +21,31 @@ class EventoCreateView(LoginRequiredMixin, CreateView):
         form.fields['solicitacao'].choices = [(item.id, item.nome_referencia) for item in Solicitacao.objects.all()]
         return form
     
-
+    def form_valid(self, form):
+        print('Dentro de form_valid')
+        response =  super().form_valid(form)
+        print('passou no evento')
+        solicitacao = form.cleaned_data.get('solicitacao')
+        solicitacao_id = solicitacao.id
+        print(f'Solicitação ID: {solicitacao_id}')
+        
+        # Obter o objeto Solicitacao e atualizar o status
+        solicitacao = get_object_or_404(Solicitacao, id=solicitacao_id)
+        solicitacao.status = "EA"
+        solicitacao.save()
+        
+        return response
+    
+    def form_invalid(self, form):
+        print('Formulário inválido')
+        print(form.errors)
+        return super().form_invalid(form)
+    
+    def post(self, request, *args, **kwargs):
+        print('Dentro do método post')
+        print('Dados do formulário:', request.POST)
+        return super().post(request, *args, **kwargs)
+    
 
 class EventoListView(LoginRequiredMixin,ListView):
     model = EventoRegistro

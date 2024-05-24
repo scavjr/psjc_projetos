@@ -33,7 +33,7 @@ class Solicitacao(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.status = 'AB'
+        #self.status = 'AB'
         super().save(*args, **kwargs)
         if not self.nome_equipe:
             ano_atual = timezone.now().year
