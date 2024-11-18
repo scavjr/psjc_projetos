@@ -10,6 +10,13 @@ Dashboard
 {% block content %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<style>
+  a#dashboard {color: aqua;}
+</style>
+
+
+
+
 <div class="container">
   <div class="row d-flex justify-content-end mt-2">
     {% if user.is_authenticated %}
@@ -18,8 +25,8 @@ Dashboard
     Você não está logado!
     {% endif %}
   </div>
-  <div class="row">
-    <div class="col-4 pt-3">
+  <div class="row justify-content-center">
+    <div role="contentinfo" class="col-4 pt-3">
       <p>
         Solicitações ativas: {{total_solicitacoes}}
       </p>
