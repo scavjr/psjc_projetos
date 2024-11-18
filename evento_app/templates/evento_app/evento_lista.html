@@ -3,8 +3,9 @@
 Lista de Eventos
 {% endblock %}
 {% block content %}
-<h1>Eventos</h1>
-
+<style>
+    a#eventos {color: aqua;}
+</style>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -22,13 +23,13 @@ Lista de Eventos
         <tbody>
             {% for eventos in object_list %}
             <tr>
-                <td>{{eventos.id}}</td>
-                <td>{{eventos.data_evento|date:"SHORT_DATE_FORMAT" }}</td>
-                <td>{{eventos.descricao}}</td>
-                <td>{{eventos.documento}}</td>
-                <td>{{eventos.responsavel}}</td>
-                <td>{{eventos.tipo_evento}}</td>
-                <td>{{eventos.solicitacao.nome_referencia}}</td>
+                <td><p class="fw-normal">{{eventos.id}}</p></td>
+                <td><p class="fw-normal">{{eventos.data_evento|date:"SHORT_DATE_FORMAT" }}</p></td>
+                <td><p class="fw-normal">{{eventos.descricao}}</p></td>
+                <td><p class="fw-normal">{{eventos.documento}}</p></td>
+                <td><p class="fw-normal">{{eventos.responsavel}}</p></td>
+                <td><p class="fw-normal">{{eventos.tipo_evento}}</p></td>
+                <td><p class="fw-normal">{{eventos.solicitacao.nome_referencia}}</p></td>
                 <td> <a href="{% url 'evento_detalhe' eventos.id %}" class="btn btn-outline-primary btn-sm">Exibir</a>
                 </td>
                 <td> <a href="{% url 'evento_atualiza' eventos.id %}" class="btn btn-outline-primary btn-sm">Editar</a>
