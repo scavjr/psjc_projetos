@@ -1,5 +1,9 @@
 {% extends "web_project/base.html" %}
 
+{% block title %}
+    Sistema de Gerenciamento de Obras e Serviços
+{% endblock %}
+
 {% block content %}
 
 
@@ -9,10 +13,9 @@
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>Sua conta não tem autorização para acessar esta página. Fale com o administrador do sistema.</p>
     {% else %}
-    <p>Please login to see this page.</p>
+    <p>Faça o login para acessar esta página.</p>
     {% endif %}
 {% endif %}
 <div class="container">
