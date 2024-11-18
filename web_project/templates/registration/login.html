@@ -1,39 +1,53 @@
-{% extends "web_project/base.html" %}
+  {% extends "web_project/base_prelog.html" %}
+
+{% block title %}
+    Sistema de Gerenciamento de Obras e Serviços
+{% endblock %}
 
 {% block content %}
 
+
 <div class="container-fluid h-100 d-flex justify-content-center align-items-center mt-5">
   <div class="card border-light shadow-sm">
-    <div class="card-header bg-light text-center ">Login</div>
+    <div class="card-header bg-light text-center "><h2>Sistema de Gerenciamento de Obras e Serviços</h2></div>
     <div class="card-body mt-5">
       {% if form.errors %}
-      <p class="alert alert-danger">Username e senha não encontrados. Por favor, tente novamente!</p>
+        <p class="alert alert-danger">Usuário não encontrado ou senha incorreta. Por favor, tente novamente.</p>
       {% endif %}
       {% if next %}
-      {% if user.is_authenticated %}
-      <p class="alert alert-warning">Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
-      {% else %}
-      <p class="alert alert-info">Please login to see this page.</p>
-      {% endif %}
+        {% if user.is_authenticated %}
+          <p class="alert alert-warning">Acesso negado. Entre em contato com o administrador.</p>
+        {% else %}
+          <p class="alert alert-info">Insira nome de usuário e senha:</p>
+        {% endif %}
       {% endif %}
       <form method="post" action="{% url 'login' %}">
+        <legend>Faça o login para acessar o sistema.</legend></p>
         {% csrf_token %}
-        <div class="form-group">
-          {{ form.username.label_tag }}
-          {{ form.username }}
+        <div class="form-group mt-4">
+          <fieldset>
+            <legend>{{ form.username.label_tag }}</legend>
+          <div>
+            {{ form.username }}
+          </div>
           {% if form.username.errors %}
-          <span class="text-danger">{{ form.username.errors.as_ul }}</span>
+            <span class="text-danger">{{ form.username.errors.as_ul }}</span>
           {% endif %}
+        </fieldset>
         </div>
         <div class="form-group mt-4">
-          {{ form.password.label_tag }}
+          <fieldset>
+            <legend>{{ form.password.label_tag }}</legend>
+          <div>
           {{ form.password }}
+          </div>
           {% if form.password.errors %}
-          <span class="text-danger">{{ form.password.errors.as_ul }}</span>
+            <span class="text-danger">{{ form.password.errors.as_ul }}</span>
           {% endif %}
+          </fieldset>
         </div>
 <div class=" text-center">
-  <button type="submit" class="btn btn-primary mt-5">Login</button>
+  <button type="submit" class="btn btn-primary mt-4">Acessar</button>
 </div> 
         <input type="hidden" name="next" value="{{ next }}">
       </form>
@@ -42,7 +56,7 @@
   </div>
 </div>
 <div  class="mt-3">
-  <p class="text-center"><a href="{% url 'registroUsuarioForm' %}">Novo usuário?</a></p>  
+  <p class="text-center"><a href="{% url 'registroUsuarioForm' %}">Clique aqui para registrar um novo usuário</a></p>  
 </div>
 
 
