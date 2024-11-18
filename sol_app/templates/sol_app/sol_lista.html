@@ -3,12 +3,12 @@
 Lista de Solicitações
 {% endblock %}
 {% block content %}
-<div class="row text-center mt-2">
-    <h4>Lista de Solicitações</h4>
-</div>
+<style>
+    a#solicita {color: aqua;}
+</style>
 
     {% if object_list %}
-    <table class="table table-striped">
+    <table role="table" class="table table-striped">
         <thead>
             <tr>
                 <th>Tipo</th>
@@ -25,13 +25,13 @@ Lista de Solicitações
             {%endif%}
             {% for solicitacao in object_list %}
             <tr>
-                <td>{{solicitacao.tipoos}}</td>
-                <td>{{solicitacao.nome_referencia}}</td>
-                <td>{{solicitacao.doc_sol}}</td>
-                <td>{{solicitacao.data_sol |date:"SHORT_DATE_FORMAT" }}</td>
-                <td>{{solicitacao.regiao}}</td>
-                <td>{{solicitacao.setor}}</td>
-                <td>{{solicitacao.nome_equipe}}</td>
+                <td><p class="fw-normal">{{solicitacao.tipoos}}</p></td>
+                <td><p class="fw-normal">{{solicitacao.nome_referencia}}</p></td>
+                <td><p class="fw-normal">{{solicitacao.doc_sol}}</p></td>
+                <td><p class="fw-normal">{{solicitacao.data_sol |date:"SHORT_DATE_FORMAT" }}</td>
+                <td><p class="fw-normal">{{solicitacao.regiao}}</p></td>
+                <td><p class="fw-normal">{{solicitacao.setor}}</p></td>
+                <td><p class="fw-normal">{{solicitacao.nome_equipe}}</p></td>
                 <td> <a href="{% url 'sol_detalhe' solicitacao.id %}" class="btn btn-outline-primary btn-sm">Exibir</a>
                 </td>
                 <td> <a href="{% url 'sol_form_editar' 'editar' solicitacao.id %}"
@@ -52,7 +52,7 @@ Lista de Solicitações
         </tbody>
     </table>
     {% if object_list %}
-    <div class="row">
+    <div role="navigation" class="row">
         <nav class="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li class="page-item">
@@ -82,7 +82,7 @@ Lista de Solicitações
     {% if object_list %}
     <form action="{% url 'sol_record_form' %}" method="get">
         {% csrf_token %}
-        <div class="row">
+        <div role="contentinfo" class="row">
             <div class="col-6">
                  <button type="submit" class="btn btn-secondary mt-3">Nova Solicitação</button>
             </div>
